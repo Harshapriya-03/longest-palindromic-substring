@@ -1,0 +1,60 @@
+#include<bits/stdc++.h> 
+using namespace std; 
+class Solution{   
+public:
+    string longestPalindrome(string s){
+
+    int n=s.length();
+    //cout<<n<<endl;
+    int a[n][n];
+    memset(a,0,sizeof(a));
+    int max=0,c=0,d=0,u=0;
+    for(int i=0;i<n;i++)a[i][i]=1;
+    for(int i=1;i<n;i++)
+    {
+        if(s[i-1]==s[i])
+        {
+            a[i-1][i]=1;
+            max=2;
+            if(u==0)
+            {
+             c=i;d=i-1;
+            }
+            u++;
+        }
+    }
+    for(int k=2;k<n;k++)
+    {
+        for(int i=0;i<n-k;i++)
+        {
+            int r=k+i;
+            if(s[i]==s[r]&&a[i+1][r-1]==1)
+            {
+                a[i][r]=1;
+                if(r-i+1>max)
+                {
+                    max=r-i+1;
+                    c=r;d=i;
+                }
+            }
+        }
+    }
+    string st="";
+    for(int i=d;i<=c;i++)
+    {
+       st+=s[i]; 
+    }
+    return st;
+    }
+};
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string S;
+        cin>>S;
+        Solution ob;
+        cout<<ob.longestPalindrome(S)<<endl;
+    }
+    return 0;
+}
